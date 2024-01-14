@@ -50,7 +50,7 @@ function validateToken(loginToken) {
         return loggedinUser
 
     } catch(err) {
-        console.log('Invalid login token')
+        // console.log('Invalid login token')
     }
     return null
 }

@@ -5,9 +5,11 @@ const asyncLocalStorage = require('../../services/als.service')
 
 async function query(filterBy = {}) {
     try {
-        // const criteria = _buildCriteria(filterBy)
+        const criteria = {
+            subgroupId: { $regex: filterBy.subgroup, $options: 'i' },
+        }
         const collection = await dbService.getCollection('item')
-        const items = await collection.find().toArray()
+        const items = await collection.find(criteria).toArray()
         return items
     } catch (err) {
         logger.error('cannot find items', err)

@@ -6,8 +6,11 @@ const itemService = require('./item.service')
 
 async function getItems(req, res) {
     try {
-        console.log('here');
-        const items = await itemService.query(req.query)
+        const filterBy = {
+            subgroup: req.query.group || '',
+        }
+        console.log(filterBy);
+        const items = await itemService.query(filterBy)
         res.send(items)
     } catch (err) {
         logger.error('Cannot get items', err)
@@ -43,15 +46,15 @@ async function addItem(req, res) {
 
 async function updateItem(req, res) {
     try {
-      const item = req.body
-      const updatedItem = await itemService.update(item)
-      res.json(updatedItem)
+        const item = req.body
+        const updatedItem = await itemService.update(item)
+        res.json(updatedItem)
     } catch (err) {
-      logger.error('Failed to update item', err)
-      res.status(500).send({ err: 'Failed to update item' })
-  
+        logger.error('Failed to update item', err)
+        res.status(500).send({ err: 'Failed to update item' })
+
     }
-  }
+}
 
 module.exports = {
     getItems,

@@ -21,6 +21,8 @@ if (process.env.NODE_ENV === 'production') {
     app.use(cors(corsOptions))
 }
 
+const subGroupRoutes = require('./api/subGroup/subGroup.routes')
+const groupRoutes = require('./api/group/group.routes')
 const itemRoutes = require('./api/item/item.routes')
 const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
@@ -32,6 +34,8 @@ const setupAsyncLocalStorage = require('./middlewares/setupAls.middleware')
 app.all('*', setupAsyncLocalStorage)
 
 app.use('/api/item', itemRoutes)
+app.use('/api/group', groupRoutes)
+app.use('/api/subGroup', subGroupRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
 app.use('/api/review', reviewRoutes)
